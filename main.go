@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -101,10 +102,11 @@ func main() {
 		query := c.Query("query")
 
 		if query != "" {
+			query = strings.ToLower(query)
 			var searchUsers Users
 			var user User
 			for i := 0; i < len(users.Users); i++ {
-				if strconv.Itoa(users.Users[i].Id) == query || users.Users[i].Name == query || users.Users[i].Email == query || users.Users[i].Phone == query || users.Users[i].Address == query {
+				if strconv.Itoa(users.Users[i].Id) == query || strings.ToLower(users.Users[i].Name) == query || strings.ToLower(users.Users[i].Email) == query || users.Users[i].Phone == query ||strings.ToLower( users.Users[i].Address) == query {
 					user = users.Users[i]
 					searchUsers.Users = append(searchUsers.Users, user)
 				}

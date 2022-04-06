@@ -1,1 +1,9 @@
-<users></users>
+<users>
+	<user>
+		<id>1</id>
+		<name>Ahmed Magdy</name>
+		<phone>01159552234</phone>
+		<address>Alexandria, Egypt</address>
+		<email>ahmedmagdy.200m@gmail.com</email>
+	</user>
+</users>
