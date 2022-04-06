@@ -1,0 +1,32 @@
+{{template "partials/header" .}}
+
+<h1 class="text-3xl mb-8 font-bold text-center">
+        My Phonebook
+    </h1>
+    <div class="container m-auto">
+        <h2 class="text-3xl mb-8 font-bold text-center">
+            Add new contact
+        </h2>
+
+        <form action="/new" method="post" class="grow flex items-center flex-col justify-center items-center">
+            <div class="mb-6 grow w-full">
+                <label class="mr-8 pl-4 flex-1 capitalize" for="name">name</label>
+                <input name="name" id="name" class="w-full rounded-md bg-slate-200 focus:border-amber-900 border-4 border-slate-900 text-slate-900" placeholder="My Friendo" type="text">
+            </div>
+            <div class="mb-6 grow w-full">
+                <label class="mr-8 pl-4 flex-1 capitalize" for="phone">phone</label>
+                <input name="phone" id="phone" class="w-full rounded-md bg-slate-200 focus:border-amber-900 border-4 border-slate-900 text-slate-900" placeholder="My Friendo" type="text">
+            </div>
+            <div class="mb-6 grow w-full">
+                <label class="mr-8 pl-4 flex-1 capitalize" for="address">address</label>
+                <input name="address" id="address" class="w-full rounded-md bg-slate-200 focus:border-amber-900 border-4 border-slate-900 text-slate-900" placeholder="My Friendo" type="text">
+            </div>
+            <div class="mb-6 grow w-full">
+                <label class="mr-8 pl-4 flex-1 capitalize" for="email">email</label>
+                <input name="email" id="email" class="w-full rounded-md bg-slate-200 focus:border-amber-900 border-4 border-slate-900 text-slate-900" placeholder="My Friendo" type="email">
+            </div>
+            <button type="submit" class="px-4 py-2 font-semibold hover:bg-green-800 active:bg-green-900 text-sm bg-green-700 text-white rounded-md shadow-sm">Add</button>
+        </form>
+    </div>
+
+    {{template "partials/footer" .}}
