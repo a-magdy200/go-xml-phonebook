@@ -21,7 +21,7 @@ func main() {
 	app.Get("/new", func(c *fiber.Ctx) error {
 		return c.Render("new", "")
 	})
-	app.Post("/new", func(c *fiber.Ctx) error {
+	app.Post("/insert", func(c *fiber.Ctx) error {
 		xmlFile, err := os.Open("users.xml")
 		// if we os.Open returns an error then handle it
 		if err != nil {
@@ -114,6 +114,54 @@ func main() {
 		return c.Render("all", users)
 		//return c.SendString(string(jsonString))
 	})
+	app.Get("/edit", func(c *fiber.Ctx) error {
+		// Open our xmlFile
+		xmlFile, err := os.Open("users.xml")
+		// if we os.Open returns an error then handle it
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println("Successfully Opened users.xml")
+		// defer the closing of our xmlFile so that we can parse it later on
+		defer func(xmlFile *os.File) {
+			err := xmlFile.Close()
+			if err != nil {
+
+			}
+		}(xmlFile)
+
+		// read our opened xmlFile as a byte array.
+		byteValue, _ := ioutil.ReadAll(xmlFile)
+
+		// we initialize our Users array
+		var users Users
+		// we unmarshal our byteArray which contains our
+		// xmlFiles content into 'users' which we defined above
+		err = xml.Unmarshal(byteValue, &users)
+		if err != nil {
+			return err
+		}
+
+		query := c.Query("id")
+
+		if query != "" {
+			var user User
+			found := false
+			for i := 0; i < len(users.Users); i++ {
+				if strconv.Itoa(users.Users[i].Id) == query || users.Users[i].Name == query || users.Users[i].Email == query || users.Users[i].Phone == query || users.Users[i].Address == query {
+					user = users.Users[i]
+					found = true
+					break
+				}
+			}
+			if found {
+				return c.Render("edit", user)
+			}
+			return c.SendStatus(404)
+		}
+		return c.SendStatus(404)
+	})
 	app.Get("/delete", func(c *fiber.Ctx) error {
 		// Open our xmlFile
 		xmlFile, err := os.Open("users.xml")
@@ -148,6 +196,57 @@ func main() {
 		for i := 0; i < len(users.Users); i++ {
 			if strconv.Itoa(users.Users[i].Id) != id {
 				user = users.Users[i]
+				newUsers.Users = append(newUsers.Users, user)
+			}
+		}
+		file, err := xml.MarshalIndent(newUsers, "", "\t")
+		if err != nil {
+			return err
+		}
+		_ = ioutil.WriteFile("users.xml", file, 777)
+		return c.Redirect("/")
+	})
+	app.Post("/update", func(c *fiber.Ctx) error {
+		// Open our xmlFile
+		xmlFile, err := os.Open("users.xml")
+		// if we os.Open returns an error then handle it
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println("Successfully Opened users.xml")
+		// defer the closing of our xmlFile so that we can parse it later on
+		defer func(xmlFile *os.File) {
+			err := xmlFile.Close()
+			if err != nil {
+
+			}
+		}(xmlFile)
+
+		// read our opened xmlFile as a byte array.
+		byteValue, _ := ioutil.ReadAll(xmlFile)
+
+		// we initialize our Users array
+		var users Users
+		// we unmarshal our byteArray which contains our
+		// xmlFiles content into 'users' which we defined above
+		err = xml.Unmarshal(byteValue, &users)
+		if err != nil {
+			return err
+		}
+		var user User
+		err = c.BodyParser(&user)
+		if err != nil {
+			return err
+		}
+		var oldUser User
+		var newUsers Users
+		id := user.Id
+		for i := 0; i < len(users.Users); i++ {
+			if users.Users[i].Id != id {
+				oldUser = users.Users[i]
+				newUsers.Users = append(newUsers.Users, oldUser)
+			} else {
 				newUsers.Users = append(newUsers.Users, user)
 			}
 		}

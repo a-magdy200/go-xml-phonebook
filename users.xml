@@ -1,16 +1,1 @@
-<users>
-	<user>
-		<id>4</id>
-		<name>test1</name>
-		<phone>test2</phone>
-		<address>test3</address>
-		<email>test4@test</email>
-	</user>
-	<user>
-		<id>6</id>
-		<name>test2</name>
-		<phone>test2</phone>
-		<address>test2</address>
-		<email>test2@test2</email>
-	</user>
-</users>
+<users></users>
