@@ -142,15 +142,16 @@ func main() {
 		if err != nil {
 			return err
 		}
-		//var user User
-		//id := c.Query("id")
-		//for i := 0; i < len(users.Users); i++ {
-		//	if strconv.Itoa(users.Users[i].Id) != id {
-		//		user = users.Users[i]
-		//		users.Users = append(users.Users, user)
-		//	}
-		//}
-		file, err := xml.MarshalIndent(users, "", "\t")
+		var user User
+		var newUsers Users
+		id := c.Query("id")
+		for i := 0; i < len(users.Users); i++ {
+			if strconv.Itoa(users.Users[i].Id) != id {
+				user = users.Users[i]
+				newUsers.Users = append(newUsers.Users, user)
+			}
+		}
+		file, err := xml.MarshalIndent(newUsers, "", "\t")
 		if err != nil {
 			return err
 		}

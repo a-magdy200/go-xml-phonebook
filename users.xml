@@ -1,34 +1,6 @@
 <users>
 	<user>
-		<id>1</id>
-		<name>ahmed</name>
-		<phone>ahmed</phone>
-		<address>ahmed</address>
-		<email>ahmed</email>
-	</user>
-	<user>
-		<id>2</id>
-		<name>test 1</name>
-		<phone>01234567890</phone>
-		<address>test</address>
-		<email>test@app.com</email>
-	</user>
-	<user>
-		<id>3</id>
-		<name>test 1</name>
-		<phone>01234567890</phone>
-		<address>test</address>
-		<email>test@app.com</email>
-	</user>
-	<user>
 		<id>4</id>
-		<name>test1</name>
-		<phone>test2</phone>
-		<address>test3</address>
-		<email>test4@test</email>
-	</user>
-	<user>
-		<id>5</id>
 		<name>test1</name>
 		<phone>test2</phone>
 		<address>test3</address>
